@@ -1,4 +1,4 @@
-FROM centos7
+FROM centos:7
 
 RUN apt-get update
 
