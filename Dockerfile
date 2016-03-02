@@ -5,6 +5,7 @@ RUN apt-get update
 RUN wget https://s3.amazonaws.com/syrup-shared/v10.5_linuxx64_expc.tar.gz
 ADD db2-expc-gen.rsp db2-expc-gen.rsp
 RUN v10.5fp1_linuxx64_expc.tar.gz/expc/db2setup -r db2-expc-gen.rsp || true
+RUN source /home/db2inst1/sqllib/db2profile
 
 # spawn a DB2 listener
 EXPOSE 50000
