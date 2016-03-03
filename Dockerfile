@@ -1,19 +1,14 @@
-FROM centos:7
+FROM angoca/db2-instance
+MAINTAINER: Miroslav Cillik <miro@keboola.com>
 
-RUN yum -y update && \
-    yum -y install \
-        epel-release \
-        wget \
-        tar \
-        && \
-    yum clean all
+# db2start
+RUN ./createInstance
 
-RUN wget https://s3.amazonaws.com/syrup-shared/v10.5_linuxx64_expc.tar.gz
-ADD db2-expc-gen.rsp db2-expc-gen.rsp
-RUN v10.5fp1_linuxx64_expc.tar.gz/expc/db2setup -r db2-expc-gen.rsp || true
-RUN source /home/db2inst1/sqllib/db2profile
+# create sample DB
+RUN /home/db2inst1/sqllib/bin/db2sampl
 
 # spawn a DB2 listener
 EXPOSE 50000
+
 # we just have to keep some process running to keep the container alive (since `db2start` daemonizes)
-ENTRYPOINT /home/db2inst1/sqllib/adm/db2start && tail -f /home/db2inst1/sqllib/db2dump/db2diag.log
+ENTRYPOINT tail -f /home/db2inst1/sqllib/db2dump/db2diag.log
