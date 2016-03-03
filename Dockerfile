@@ -1,5 +1,4 @@
 FROM angoca/db2-instance
-MAINTAINER: Miroslav Cillik <miro@keboola.com>
 
 # db2start
 RUN ./createInstance
