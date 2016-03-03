@@ -1,7 +1,14 @@
 FROM angoca/db2-instance
 
 # db2start
-RUN ./createInstance
+RUN ${DB2_DIR}/instance/db2isetup -r ${DB2_CONF}/${DB2_RESP_FILE}
+USER db2inst1
+RUN /home/db2inst1/sqllib/adm/db2start
+
+#RUN ./createInstance
+
+# create sample DB
+#RUN /home/db2inst1/sqllib/bin/db2sampl
 
 # spawn a DB2 listener
 EXPOSE 50000
