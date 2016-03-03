@@ -3,9 +3,6 @@ FROM angoca/db2-instance
 # db2start
 RUN ./createInstance
 
-# create sample DB
-RUN su -c "/home/db2inst1/sqllib/bin/db2sampl" - db2inst1
-
 # spawn a DB2 listener
 EXPOSE 50000
 
